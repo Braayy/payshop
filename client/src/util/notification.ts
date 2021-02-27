@@ -9,11 +9,8 @@ export function notify(message: string, type: 'info' | 'error' | 'warn') {
   if (notificationDiv.value) {
     text.value = message;
 
-    notificationDiv.value.style.opacity = '1';
-    notificationDiv.value.style.marginTop = '20px';
-
-    notificationDiv.value.classList.remove('info', 'error', 'warn');
-    notificationDiv.value.classList.add(type);
+    notificationDiv.value.classList.remove('hide', 'info', 'error', 'warn');
+    notificationDiv.value.classList.add('show', type);
 
     hideTimeout && clearInterval(hideTimeout);
 
@@ -25,8 +22,8 @@ export function notify(message: string, type: 'info' | 'error' | 'warn') {
 
 export function hide() {
   if (notificationDiv.value) {
-    notificationDiv.value.style.opacity = '0';
-    notificationDiv.value.style.marginTop = '-30px';
+    notificationDiv.value.classList.remove('show');
+    notificationDiv.value.classList.add('hide');
 
     hideTimeout && clearInterval(hideTimeout);
   }

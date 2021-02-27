@@ -23,6 +23,8 @@ export interface PublicAppNotification {
 </script>
 
 <style lang="scss" scoped>
+$delay: .5s;
+
 .info {
   background: var(--info);
 }
@@ -33,6 +35,16 @@ export interface PublicAppNotification {
 
 .error {
   background: var(--error);
+}
+
+.show {
+  margin-top: 10px !important;
+  opacity: 1 !important;
+}
+
+.hide {
+  margin-top: -30px !important;
+  opacity: 0 !important;
 }
 
 .app-notification {
@@ -47,6 +59,6 @@ export interface PublicAppNotification {
   left: 50%;
   transform: translateX(-50%);
 
-  transition: opacity .5s, margin-top .5s;
+  transition: opacity $delay, margin-top $delay;
 }
 </style>

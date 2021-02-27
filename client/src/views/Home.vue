@@ -4,7 +4,7 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium commodi ea eligendi est illo ipsa, iste natus nobis non obcaecati officia, placeat quidem reiciendis sapiente tenetur totam vero. Corporis, cumque!</p>
     </div>
     <div class='image center'>
-      <img src='../assets/home.jpg' />
+      <img src='https://via.placeholder.com/400' />
     </div>
   </div>
 </template>
