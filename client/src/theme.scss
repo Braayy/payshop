@@ -1,0 +1,43 @@
+$light-primary: #E7E9DB;
+$light-secondary: #A24936;
+$light-text: #282B28;
+$light-action: #D36135;
+$light-transaction-received: #159E41;
+$light-transaction-sent: #FF6D6D;
+
+$dark-primary: #282B28;
+$dark-secondary: #3E5641;
+$dark-text: #E7E9DB;
+$dark-action: #83BCA9;
+$dark-transaction-received: #5BFF8F;
+$dark-transaction-sent: #FF6D6D;
+
+@mixin shared {
+  --light: #E7E9DB;
+
+  --error: #E03333;
+  --info: #2981CE;
+  --warn: #BAC138;
+}
+
+.light-theme {
+  --primary: #{$light-primary};
+  --secondary: #{$light-secondary};
+  --text: #{$light-text};
+  --action: #{$light-action};
+  --transaction-received: #{$light-transaction-received};
+  --transaction-sent: #{$light-transaction-sent};
+
+  @include shared;
+}
+
+.dark-theme {
+  --primary: #{$dark-primary};
+  --secondary: #{$dark-secondary};
+  --text: #{$dark-text};
+  --action: #{$dark-action};
+  --transaction-received: #{$dark-transaction-received};
+  --transaction-sent: #{$dark-transaction-sent};
+
+  @include shared;
+}

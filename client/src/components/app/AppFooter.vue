@@ -14,7 +14,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .app-footer {
-  height: 70px;
+  grid-area: app-footer;
+
   display: flex;
   align-items: center;
 

@@ -1,12 +1,12 @@
 <!--suppress HtmlUnknownTarget -->
 <template>
   <div class="login center">
-    <form @submit.prevent="handleSubmit">
-      <input type="email" name="email" placeholder="E-mail" autocomplete="email" class="form-control" required />
-      <input type="password" name="password" placeholder="Senha" autocomplete="current-password" class="form-control" required />
-      <router-link to="/recovery">Esqueci minha senha</router-link>
-      <router-link to="/register">Criar uma conta</router-link>
-      <input type="submit" value="Entrar" class="form-submit" />
+    <form @submit="handleSubmit">
+      <input type="email" name="email" placeholder="E-mail" autocomplete="email" class="simpleform__input" required />
+      <input type="password" name="password" placeholder="Senha" autocomplete="current-password" class="simpleform__input" required />
+      <router-link to="/recovery" class='simpleform__router-link'>Esqueci minha senha</router-link>
+      <router-link to="/register" class='simpleform__router-link'>Criar uma conta</router-link>
+      <input type="submit" value="Entrar" class="simpleform__submit" />
     </form>
   </div>
 </template>
@@ -14,31 +14,34 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { notify } from '../util/notification';
-import { getInputValue } from '../util';
+import { useSimpleForm } from '../util/simpleform';
 
 export default defineComponent({
   name: 'Login',
 
   setup() {
-    function handleSubmit(event: { target: HTMLFormElement }) {
-      const elements = event.target.elements;
-      const email = getInputValue(elements, 'email');
-      const password = getInputValue(elements, 'password');
+    const handleSubmit = useSimpleForm((values) => {
+      const email = values['email'];
+      const password = values['password'];
 
-      if (!email || !password) {
-        notify('Empty email or password!', 'error');
+      if (!email.valid) {
+        notify('E-mail invalido!', 'error');
 
         return;
       }
 
-      if (!email.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*/)) {
-        notify('Invalid e-mail format!', 'error');
+      if (!password.valid) {
+        notify('Senha invalida!', 'error');
 
         return;
       }
 
       // TODO: Make login request
-    }
+
+      notify('Logado com sucesso', 'info');
+    }, {
+      'email': (value) => value.match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*$/)
+    });
 
     return { handleSubmit };
   }
@@ -47,7 +50,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .login {
-  width: 100%;
   height: 100%;
 
   form {
@@ -57,12 +59,6 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-
-    a {
-      color: var(--action);
-      text-decoration: none;
-      text-align: right;
-    }
   }
 }
 </style>

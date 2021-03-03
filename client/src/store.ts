@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import User from "./types/User";
+import { User } from "./types/User";
 
 const LOCAL_KEY = 'payshopState';
 
@@ -34,7 +34,8 @@ export const state = reactive<State & StateSetter>({
     name: 'Brayan Gomes',
     email: 'braayy@payshop.com',
     token: 'sdsudidgs',
-    avatar_url: 'https://cdn.discordapp.com/avatars/228978419000541184/79ba12e39427cca99367c52cdd604456.png?size=128'
+    avatar_url: 'https://cdn.discordapp.com/avatars/228978419000541184/79ba12e39427cca99367c52cdd604456.png?size=128',
+    money: 100
   },
   ...localState,
 

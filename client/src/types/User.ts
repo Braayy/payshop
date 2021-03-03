@@ -1,6 +1,7 @@
-export default interface User {
+export interface User {
   name: string,
   email: string,
   token: string,
-  avatar_url: string
+  avatar_url: string,
+  money: number
 }

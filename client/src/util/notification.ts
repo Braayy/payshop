@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 
-export const text = ref<string | null>(null);
-export const notificationDiv = ref<HTMLDivElement | null>(null);
+export const text = ref<string>();
+export const notificationDiv = ref<HTMLDivElement>();
 
 let hideTimeout: number = 0;
 

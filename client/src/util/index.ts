@@ -1,5 +1,13 @@
-export function getInputValue(elements: HTMLFormControlsCollection, name: string): string | undefined {
+export function getInputValue(elements: HTMLFormControlsCollection, name: string): string | null {
   const element = elements.namedItem(name);
 
-  return element instanceof HTMLInputElement ? element.value : undefined;
+  if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
+    return element.value;
+  }
+
+  return null;
+}
+
+export function instanceOf<T>(discriminator: string, object: any): object is T {
+  return discriminator in object;
 }

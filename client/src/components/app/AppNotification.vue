@@ -16,10 +16,6 @@ export default defineComponent({
     return { text, notificationDiv, hide };
   }
 });
-
-export interface PublicAppNotification {
-  show(string: string, type: 'info' | 'error' | 'warn'): void
-}
 </script>
 
 <style lang="scss" scoped>
@@ -60,5 +56,9 @@ $delay: .5s;
   transform: translateX(-50%);
 
   transition: opacity $delay, margin-top $delay;
+
+  p {
+    color: var(--light);
+  }
 }
 </style>

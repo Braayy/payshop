@@ -1,42 +1,7 @@
 // @import "https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css";
 
-// Theme
-
-$light-primary: #E7E9DB;
-$light-secondary: #A24936;
-$light-text: #282B28;
-$light-action: #D36135;
-
-$dark-primary: #282B28;
-$dark-secondary: #3E5641;
-$dark-text: #E7E9DB;
-$dark-action: #83BCA9;
-
-@mixin shared {
-  --light: #E7E9DB;
-
-  --error: #E03333;
-  --info: #2981CE;
-  --warn: #BAC138;
-}
-
-.light-theme {
-  --primary: #{$light-primary};
-  --secondary: #{$light-secondary};
-  --text: #{$light-text};
-  --action: #{$light-action};
-
-  @include shared;
-}
-
-.dark-theme {
-  --primary: #{$dark-primary};
-  --secondary: #{$dark-secondary};
-  --text: #{$dark-text};
-  --action: #{$dark-action};
-
-  @include shared;
-}
+@import './theme';
+@import './form';
 
 // Global
 
@@ -50,20 +15,24 @@ html, body {
   min-height: 100vh;
   background: var(--primary);
   color: var(--text);
+  font-family: 'Roboto', sans-serif;
 }
 
 #app {
   min-height: 100vh;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas: 'app-header' 'app-view' 'app-footer';
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 75px 1fr 75px;
 }
 
 .app-view {
-  width: 100%;
-  height: 100%;
+  grid-area: app-view;
+
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 // Util
@@ -72,39 +41,4 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-// Form Styles
-
-.form-control {
-  height: 50px;
-  background: none;
-  border: none;
-  font-size: 20px;
-
-  color: var(--text);
-  border-bottom: 2px solid var(--secondary);
-
-  margin-bottom: 10px;
-
-  &:focus {
-    border-bottom: 2px solid var(--action);
-  }
-}
-
-.form-submit {
-  height: 50px;
-  border: none;
-  border-radius: 10px;
-  background: var(--secondary);
-  color: var(--light);
-  font-size: 20px;
-
-  width: 50%;
-  margin: 0 auto;
-  cursor: pointer;
-}
-
-input:focus {
-  outline: none;
 }

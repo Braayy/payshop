@@ -6,8 +6,9 @@
     <div class="navbar">
       <ul>
         <li><router-link to="/">Inicio</router-link></li>
+        <li v-if='state.user'><router-link to="/account">Conta</router-link></li>
         <li><router-link to="/about">Sobre</router-link></li>
-        <li><router-link to="/account">Contato</router-link></li>
+        <li><router-link to="/contact">Contato</router-link></li>
       </ul>
     </div>
     <div class="info center">
@@ -43,14 +44,8 @@ export default defineComponent({
     function toggleTheme() {
       if (state.theme === 'dark') {
         state.setTheme('light');
-
-        document.body.classList.remove('dark-theme');
-        document.body.classList.add('light-theme');
       } else {
         state.setTheme('dark');
-
-        document.body.classList.remove('light-theme');
-        document.body.classList.add('dark-theme');
       }
 
       applyTheme();
@@ -79,8 +74,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .app-header {
-  width: 100%;
-  height: 75px;
+  grid-area: app-header;
 
   display: flex;
   justify-content: space-between;

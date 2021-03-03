@@ -1,0 +1,62 @@
+$font-size: 20px;
+$input-spacing: 10px;
+
+.simpleform__input {
+  height: 50px;
+  background: none;
+  border: none;
+  font-size: $font-size;
+
+  color: var(--text);
+  border-bottom: 2px solid var(--secondary);
+
+  margin-bottom: $input-spacing;
+
+  &:focus {
+    border-bottom: 2px solid var(--action);
+  }
+}
+
+.simpleform__textarea {
+  max-width: 100%;
+  width: 100%;
+  min-height: 150px;
+  max-height: 250px;
+  height: 100%;
+  border: none;
+  border-radius: 10px;
+  resize: none;
+  padding: 10px;
+  margin-bottom: $input-spacing;
+
+  background: var(--secondary);
+  color: var(--light);
+  font-size: $font-size;
+
+  &::placeholder {
+    color: var(--light);
+  }
+}
+
+.simpleform__submit {
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background: var(--secondary);
+  color: var(--light);
+  font-size: $font-size;
+
+  width: 50%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.simpleform__router-link {
+  color: var(--action);
+  text-decoration: none;
+  text-align: right;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+}

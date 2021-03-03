@@ -16,6 +16,12 @@ import './app.scss';
 
 export default defineComponent({
   name: 'App',
-  components: { AppNotification, AppFooter, AppHeader }
+  components: { AppNotification, AppFooter, AppHeader },
+
+  watch: {
+    $route(to, from) {
+      document.title = 'Payshop | ' + to.name
+    }
+  }
 });
 </script>

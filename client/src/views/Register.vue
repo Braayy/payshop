@@ -1,12 +1,12 @@
 <template>
   <div class="register center">
-    <form @submit.prevent="handleSubmit">
-      <input type="text" name="name" placeholder="Nome" autocomplete="name" class="form-control" required />
-      <input type="text" name="email" placeholder="E-mail" autocomplete="email" class="form-control" required />
-      <input type="password" name="password" placeholder="Senha" autocomplete="new-password" class="form-control" required />
-      <input type="password" id="confirm-password" placeholder="Confirmar Senha" autocomplete="new-password" class="form-control" required />
-      <router-link to="/login">Já tenho uma conta</router-link>
-      <input type="submit" value="Registrar" class="form-submit" />
+    <form @submit="handleSubmit">
+      <input type="text" name="name" placeholder="Nome" autocomplete="name" class="simpleform__input" required />
+      <input type="text" name="email" placeholder="E-mail" autocomplete="email" class="simpleform__input" required />
+      <input type="password" name="password" placeholder="Senha" autocomplete="new-password" class="simpleform__input" required />
+      <input type="password" id="confirm-password" placeholder="Confirmar Senha" autocomplete="new-password" class="simpleform__input" required />
+      <router-link to="/login" class='simpleform__router-link'>Já tenho uma conta</router-link>
+      <input type="submit" value="Registrar" class="simpleform__submit" />
     </form>
   </div>
 </template>
@@ -14,45 +14,53 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { notify } from '../util/notification';
-import { getInputValue } from '../util';
+import { useSimpleForm } from '../util/simpleform';
 
 export default defineComponent({
   name: 'Register',
 
   setup() {
-    function handleSubmit(event: { target: HTMLFormElement }) {
-      const elements = event.target.elements;
-      const name = getInputValue(elements, 'name');
-      const email = getInputValue(elements, 'email');
-      const password = getInputValue(elements, 'password');
-      const confirmPassword = getInputValue(elements, 'confirm-password');
+    const handleSubmit = useSimpleForm((values) => {
+      const name = values['name'];
+      const email = values['email'];
+      const password = values['password'];
+      const confirmPassword = values['confirm-password'];
 
-      if (!name || !email || !password || !confirmPassword) {
-        notify('Empty name, email or password!', 'error');
-
-        return;
-      }
-
-      if (!name.match(/[a-zA-Z0-9]+/)) {
-        notify('Invalid name!', 'error');
+      if (!name.valid) {
+        notify('Nome invalido!', 'error');
 
         return;
       }
 
-      if (!email.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*/)) {
-        notify('Invalid e-mail format!', 'error');
+      if (!email.valid) {
+        notify('E-mail invalido!', 'error');
 
         return;
       }
 
-      if (password !== confirmPassword) {
-        notify('Different passwords!', 'error');
+      if (!password.valid) {
+        notify('Senha invalida!', 'error');
 
         return;
       }
 
-      // TODO: Make request request
-    }
+      if (!confirmPassword.valid) {
+        notify('Senha invalida!', 'error');
+
+        return;
+      }
+
+      if (password.value !== confirmPassword.value) {
+        notify('Senhas diferentes!', 'error');
+
+        return;
+      }
+
+      notify('Registrado com sucesso!', 'info');
+    }, {
+      'name': (value) => value.match(/^([a-zA-Z]+ ?)+$/),
+      'email': (value) => value.match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*$/)
+    });
 
     return { handleSubmit };
   }

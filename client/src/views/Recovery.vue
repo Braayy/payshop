@@ -1,45 +1,36 @@
 <template>
   <div class="recovery center">
-    <form @submit.prevent="handleSubmit">
+    <form @submit="handleSubmit" class='simpleform'>
       <p>Preencha seu e-mail e enviaremos um link para recuperar sua senha.</p>
 
-      <input type="email" name="email" placeholder="E-mail" autocomplete="email" class="form-control" required />
-      <input type="submit" value="Enviar" class="form-submit" />
+      <input type="email" name="email" placeholder="E-mail" autocomplete="email" class="simpleform__input" required />
+      <input type="submit" value="Enviar" class="simpleform__submit" />
     </form>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { getInputValue } from '../util';
 import { notify } from '../util/notification';
+import { useSimpleForm } from '../util/simpleform';
 
 export default defineComponent({
   name: 'Recovery',
 
   setup() {
-    function handleSubmit(event: { target: HTMLFormElement }) {
-      const elements = event.target.elements;
-      const email = getInputValue(elements, 'email');
+    const handleSubmit = useSimpleForm((values) => {
+      const email = values['email'];
 
-      if (!email) {
-        notification?.show('Empty email!', 'error');
-
-        return;
-      }
-
-      if (!email.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*/)) {
-        notify('Invalid e-mail format!', 'error');
+      if (!email.valid) {
+        notify('E-mail invalid!', 'error');
 
         return;
       }
 
-      // TODO: Check if there is a account registered with this email
-
-      // TODO: Request recovery
-
-      notify('Check your email and follow the instructions!', 'info');
-    }
+      notify('E-mail enviado! Verifique seu email e clique no link', 'info');
+    }, {
+      'email': (value) => value.match(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*$/)
+    });
 
     return { handleSubmit };
   }
@@ -48,7 +39,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .recovery {
-  width: 100%;
   height: 100%;
 
   form {
